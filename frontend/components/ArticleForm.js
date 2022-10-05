@@ -29,10 +29,12 @@ export default function ArticleForm(props) {
     setValues({ ...values, [id]: value })
   }
 
-  const onSubmit = evt => {
+  const onSubmit = (evt) => {
     evt.preventDefault()
     currentArticle ? updateArticle(currentArticle.article_id, values) : postArticle(values)
+    setCurrentArticleId(null)
     setValues(initialFormValues)
+
   }
 
   

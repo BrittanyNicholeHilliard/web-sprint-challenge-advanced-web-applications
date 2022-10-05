@@ -77,7 +77,10 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
     .then(res => {
-        console.log(res)
+        setMessage(res.data.message)
+        const updatedArticle = res.data.article
+        setArticles(articles.map(art => (art.article_id === article_id) ? updatedArticle : art
+        ))
       }).catch(err => {
         console.log(err)
       })
@@ -85,10 +88,11 @@ export default function App() {
   }
 
   const deleteArticle = article_id => {
-    axiosWithAuth().delete(`http://localhost:9000/api/articles/:${article_id}`)
+    axiosWithAuth().delete(`http://localhost:9000/api/articles/${article_id}`)
     .then(res => {
       console.log(res)
       setArticles(articles.filter(art => (art.article_id != article_id)))
+      setMessage(res.data.message)
     }).catch(err => {
       console.log(err)
     })
